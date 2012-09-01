@@ -13,7 +13,7 @@ module SimpleNavigation
             li_options[:class] = [li_options[:class], 'dropdown'].flatten.compact.join(' ')
           end
           list << content_tag(:li, li_content, li_options)
-        end.join
+        end.join(join_with)
         SimpleNavigation.config.selected_class = config_selected_class
         if skip_if_empty? && item_container.empty?
           ''
@@ -23,6 +23,10 @@ module SimpleNavigation
       end
 
       protected
+
+      def join_with
+        @join_with ||= options[:join_with] || ""
+      end
 
       def tag_for(item, icon = nil)
         unless item.url or include_sub_navigation?(item)
